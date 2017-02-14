@@ -146,3 +146,29 @@ int unique_lock_test()
 
     return 0;
 }
+
+
+std::mutex mtx_lock_guard;
+
+void print_thread_id(int id)
+{
+    mtx_lock_guard.lock();
+    std::lock_guard<std::mutex> lck(mtx_lock_guard,std::adopt_lock);
+    std::cout<<"thread #"<<id <<'\n';
+
+}
+
+int lock_guard_test()
+{
+    std::thread threads[10];
+
+    for(int nIndex = 0 ;nIndex < 10; ++nIndex)
+    {
+        threads[nIndex] = std::thread(print_thread_id,nIndex + 1);
+    }
+
+    for(auto& th:threads)
+        th.join();
+
+    return 0;
+}
