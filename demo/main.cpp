@@ -68,6 +68,8 @@ int main() {
     // func<Foo>();
     // func<Bar>();
     //thread_test1();
-    mutex_test();
+    //mutex_test();
+    //time_mutex_test();
+    unique_lock_test();
     return 0;
 }

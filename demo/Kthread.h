@@ -105,6 +105,44 @@ void fireworks()
 {
     while (!time_mtx.try_lock_for(std::chrono::milliseconds(200)))
     {
-        std::<<"-";
+        std::cout<<"-";
     }
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::cout<<"*\n";
+    time_mtx.unlock();
+}
+
+int time_mutex_test()
+{
+    std::thread threads[10];
+    for(int nIndex = 0; nIndex < 10;++nIndex)
+    {
+        threads[nIndex] = std::thread(fireworks);
+
+    }
+
+    for(auto& th:threads) th.join();
+    return 0;
+}
+
+std::mutex mutex_test_value;
+void print_block(int n, char c)
+{
+    std::unique_lock<std::mutex> lck(mutex_test_value);
+    for(int nIndex = 0; nIndex < n; ++nIndex)
+    {
+        std::cout<<c;
+    }
+    std::cout<<'\n';
+}
+
+int unique_lock_test()
+{
+    std::thread thread1(print_block,50,'*');
+    std::thread thread2(print_block,50,'#');
+
+    thread1.join();
+    thread2.join();
+
+    return 0;
 }
