@@ -72,6 +72,8 @@ int main() {
     //time_mutex_test();
     //unique_lock_test();
     //lock_guard_test();
-    lock_guard_exception_test();
+    //lock_guard_exception_test();
+    unique_lock_test_1();
     return 0;
 }
+
