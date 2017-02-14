@@ -172,3 +172,43 @@ int lock_guard_test()
 
     return 0;
 }
+
+#include <stdexcept>
+std::mutex mtx_except;
+
+void print_event(int x)
+{
+    if(x% 2== 0)
+        std::cout<<x<<" is even\n";
+    else
+        throw (std::logic_error("not even"));
+}
+
+void print_thread_id_2(int id)
+{
+    try {
+        std::lock_guard<std::mutex> lck(mtx_except);
+        print_event(id);
+    }
+    catch (std::logic_error&)
+    {
+        std::cout<<"{exception caught]\n";
+    }
+
+}
+
+
+int lock_guard_exception_test()
+{
+    std::thread  threads[10];
+    for(int nIndex = 0; nIndex < 10; ++nIndex)
+    {
+        threads[nIndex] = std::thread(print_thread_id_2,nIndex + 1);
+
+    }
+
+    for(auto& th:threads) th.join();
+
+    return 0;
+}
+

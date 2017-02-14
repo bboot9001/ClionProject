@@ -70,6 +70,8 @@ int main() {
     //thread_test1();
     //mutex_test();
     //time_mutex_test();
-    unique_lock_test();
+    //unique_lock_test();
+    //lock_guard_test();
+    lock_guard_exception_test();
     return 0;
 }
