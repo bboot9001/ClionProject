@@ -62,10 +62,12 @@ void unordered_multimap_c11()
 
     auto range = map.equal_range(key);
 }
-
+#include "Kthread.h"
 int main() {
-   // std::cout << "Hello, World!" << std::endl;
-    func<Foo>();
-    func<Bar>();
+    // std::cout << "Hello, World!" << std::endl;
+    // func<Foo>();
+    // func<Bar>();
+    //thread_test1();
+    mutex_test();
     return 0;
 }
